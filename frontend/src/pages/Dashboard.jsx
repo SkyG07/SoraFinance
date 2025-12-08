@@ -19,7 +19,7 @@ const Dashboard = () => {
   const fetchTransactions = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.get("http://localhost:5000/api/transactions", {
+      const { data } = await axios.get("/api/transactions", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setTransactions(data);
@@ -35,19 +35,22 @@ const Dashboard = () => {
   }, [token]);
 
   // Filter transactions
-  const filteredTransactions = transactions.filter(tx => {
+  const filteredTransactions = transactions.filter((tx) => {
     const txDate = new Date(tx.date);
     const txMonth = txDate.toLocaleString("default", { month: "long" });
     const txYear = txDate.getFullYear().toString();
-    return (month === "All" || txMonth === month) && (year === "All" || txYear === year);
+    return (
+      (month === "All" || txMonth === month) &&
+      (year === "All" || txYear === year)
+    );
   });
 
   const income = filteredTransactions
-    .filter(tx => tx.type === "income")
+    .filter((tx) => tx.type === "income")
     .reduce((acc, tx) => acc + Number(tx.amount), 0);
 
   const expenses = filteredTransactions
-    .filter(tx => tx.type === "expense")
+    .filter((tx) => tx.type === "expense")
     .reduce((acc, tx) => acc + Number(tx.amount), 0);
 
   return (
@@ -57,7 +60,12 @@ const Dashboard = () => {
         <div className="text-base-content/60">Loading dashboard...</div>
       ) : (
         <>
-          <DashboardFilters month={month} year={year} setMonth={setMonth} setYear={setYear} />
+          <DashboardFilters
+            month={month}
+            year={year}
+            setMonth={setMonth}
+            setYear={setYear}
+          />
           <DashboardSummary income={income} expenses={expenses} />
           <IncomeExpensesOverTime transactions={filteredTransactions} />
           <ExpensesByCategory transactions={filteredTransactions} />

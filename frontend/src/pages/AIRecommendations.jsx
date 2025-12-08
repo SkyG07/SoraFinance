@@ -21,7 +21,7 @@ const AIRecommendations = () => {
   const fetchTransactions = async () => {
     setLoadingTransactions(true);
     try {
-      const { data } = await axios.get("http://localhost:5000/api/transactions", {
+      const { data } = await axios.get("/api/transactions", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setTransactions(data || []);
@@ -50,7 +50,7 @@ const AIRecommendations = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/ai/recommend",
+        "/api/ai/recommend",
         { transactions },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -65,11 +65,19 @@ const AIRecommendations = () => {
       toast.dismiss(loadingId);
       toast.success("AI recommendations ready!");
 
-      setTimeout(() => cardRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 120);
+      setTimeout(
+        () =>
+          cardRef.current?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          }),
+        120
+      );
     } catch (err) {
       console.error("AIRecommendations ERROR:", err);
       toast.dismiss(loadingId);
-      const msg = err?.response?.data?.error || "Failed to fetch AI recommendations.";
+      const msg =
+        err?.response?.data?.error || "Failed to fetch AI recommendations.";
       toast.error(msg);
     } finally {
       setLoadingAI(false);
@@ -155,7 +163,9 @@ const AIRecommendations = () => {
           </div>
           <div>
             <div className="text-lg font-semibold">SoraFinance AI</div>
-            <div className="text-sm text-base-content/60">Friendly tips in ₱ for everyday Filipinos</div>
+            <div className="text-sm text-base-content/60">
+              Friendly tips in ₱ for everyday Filipinos
+            </div>
           </div>
         </div>
 
@@ -188,7 +198,8 @@ const AIRecommendations = () => {
         ) : (
           !loadingAI && (
             <div className="text-base-content/60">
-              Click <span className="font-medium">Run AI Recommendations</span> to analyze your transactions.
+              Click <span className="font-medium">Run AI Recommendations</span>{" "}
+              to analyze your transactions.
             </div>
           )
         )}

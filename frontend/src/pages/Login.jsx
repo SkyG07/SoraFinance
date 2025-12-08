@@ -14,13 +14,10 @@ const Login = ({ onLogin }) => {
     setLoading(true);
 
     try {
-      const { data } = await axios.post(
-        "http://localhost:5000/api/auth/login",
-        {
-          email,
-          password,
-        }
-      );
+      const { data } = await axios.post("/api/auth/login", {
+        email,
+        password,
+      });
 
       toast.success("Login successful!");
 

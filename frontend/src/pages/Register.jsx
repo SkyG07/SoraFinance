@@ -16,14 +16,11 @@ const Register = ({ onRegister }) => {
     setLoading(true);
 
     try {
-      const { data } = await axios.post(
-        "http://localhost:5000/api/auth/register",
-        {
-          name,
-          email,
-          password,
-        }
-      );
+      const { data } = await axios.post("/api/auth/register", {
+        name,
+        email,
+        password,
+      });
 
       toast.success("Account created successfully!");
 
