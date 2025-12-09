@@ -22,9 +22,13 @@ Deployed with Render
 🔧 Tech Stack
 
 Frontend: React, Vite, Tailwind CSS, Axios
+
 Backend: Node.js, Express, MongoDB (Mongoose)
+
 AI: OpenRouter API
+
 Deployment: Render
+
 Other: JWT Auth, Rate Limiting, dotenv
 
 📁 Project Structure
